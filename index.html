@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#111827">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="ProductLens">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="apple-touch-icon" href="assets/icon-192.png">
+  <title>ProductLens</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+</head>
+<body>
+  <header class="top">
+    <div class="brand"><div class="brandicon">⌕</div><div><h1>ProductLens</h1><p>Scan it. Find it. Compare it.</p></div></div>
+    <span class="free">FREE</span>
+  </header>
+  <main>
+    <section class="hero">
+      <p class="eyebrow">YOUR PERSONAL SHOPPING ASSISTANT</p>
+      <h2>Find the exact product<br>before you buy.</h2>
+      <p class="muted">Photograph a product, read its label and compare retailer listings.</p>
+      <label class="upload" for="photo"><span class="camera">＋</span><span><b>Scan or upload a product</b><small>Use your camera or photo library</small></span><span class="arrow">›</span></label>
+      <input id="photo" type="file" accept="image/*" capture="environment" hidden>
+      <div id="previewWrap" class="preview hidden"><img id="preview" alt="Selected product"><button id="removePhoto" class="x" aria-label="Remove photo">×</button></div>
+      <button id="readBtn" class="primary" disabled>Read product label</button>
+      <div id="ocrStatus" class="status" aria-live="polite"></div>
+    </section>
+
+    <section class="panel">
+      <div class="sectionhead"><div><p class="eyebrow">PRODUCT DETAILS</p><h3>Confirm the product</h3></div><span class="step">01</span></div>
+      <p class="hint">Check the text carefully. Exact matching depends on the correct brand, model and variant.</p>
+      <div class="fields">
+        <label>Brand<input id="brand" placeholder="e.g. Samsung"></label>
+        <label>Product name<input id="name" placeholder="e.g. Galaxy Buds FE"></label>
+        <div class="two">
+          <label>Model / MPN<input id="model" placeholder="Model number"></label>
+          <label>Barcode / GTIN<input id="barcode" inputmode="numeric" placeholder="Barcode digits"></label>
+        </div>
+        <div class="two">
+          <label>Variant / size<input id="variant" placeholder="e.g. 256 GB, Black"></label>
+          <label>Category<input id="category" placeholder="e.g. Electronics"></label>
+        </div>
+        <label>Text read from image<textarea id="ocrText" rows="4" placeholder="Recognised label text appears here…"></textarea></label>
+      </div>
+      <button id="saveBtn" class="primary">Save product to my library</button>
+      <p id="saveStatus" class="status" aria-live="polite"></p>
+    </section>
+
+    <section class="panel">
+      <div class="sectionhead"><div><p class="eyebrow">PRICE COMPARISON</p><h3>Search retailers</h3></div><span class="step">02</span></div>
+      <p class="hint">These open retailer search results using your confirmed product details. Prices and descriptions are shown by the retailer; this version does not claim to fetch live prices automatically.</p>
+      <div class="retailers">
+        <a id="amazon" class="retailer" target="_blank" rel="noopener"><span class="retlogo amazon">a</span><span><b>Amazon India</b><small>Search exact product</small></span><span class="arrow">↗</span></a>
+        <a id="flipkart" class="retailer" target="_blank" rel="noopener"><span class="retlogo flip">f</span><span><b>Flipkart</b><small>Search exact product</small></span><span class="arrow">↗</span></a>
+        <a id="myntra" class="retailer" target="_blank" rel="noopener"><span class="retlogo myntra">M</span><span><b>Myntra</b><small>Search exact product</small></span><span class="arrow">↗</span></a>
+      </div>
+      <div class="manualprice">
+        <h4>Record a price you find</h4>
+        <div class="two">
+          <label>Retailer<select id="priceRetailer"><option>Amazon India</option><option>Flipkart</option><option>Myntra</option></select></label>
+          <label>Price (₹)<input id="priceValue" type="number" min="0" step="0.01" placeholder="e.g. 1499"></label>
+        </div>
+        <label>Product listing URL<input id="listingUrl" type="url" placeholder="Paste the retailer product link"></label>
+        <button id="recordPrice" class="secondary">Save price observation</button>
+        <p id="priceStatus" class="status" aria-live="polite"></p>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="sectionhead"><div><p class="eyebrow">YOUR COLLECTION</p><h3>Saved products</h3></div><span id="count" class="count">0</span></div>
+      <div id="savedList" class="savedlist"><div class="empty">Your saved products will appear here.</div></div>
+    </section>
+    <p class="privacy">🔒 Your saved product library and price notes stay in this browser on this iPhone. Clearing Safari website data can erase them. Export your data regularly.</p>
+    <button id="exportBtn" class="secondary export">Export my product data</button>
+  </main>
+  <footer>ProductLens · Personal shopping companion</footer>
+  <script src="app.js"></script>
+</body>
+</html>
